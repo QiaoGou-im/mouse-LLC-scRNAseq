@@ -17,7 +17,7 @@ The analyses investigate the role of Treg-derived, GARP-mediated TGF-β1 activit
 
 ## Data availability
 
-The DDBJ accession number will be added when available.
+The sequencing data generated in this study are available in the DNA Data Bank of Japan (DDBJ) under accession number PRJDB17170.
 
 ## Analysis code
 
