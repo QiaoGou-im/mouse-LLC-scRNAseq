@@ -73,3 +73,20 @@ p1<-delete_layers(p, "GeomLabel")
 p1
 
 ggsave(plot=p1, filename="Ctrl_vs_cKO_cell_composition.pdf",width = 14,height = 10)
+
+#DEG analysis#
+GARP.int$celltype.orig.ident <- paste(Idents(GARP.int), GARP.int$orig.ident, sep = "_")
+GARP.int$celltype <- Idents(GARP.int)
+Idents(GARP.int) <- "celltype.orig.ident"
+
+DefaultAssay(GARP.int)  <- "RNA"
+#options(future.globals.maxSize = 8000 * 1024^2)
+GARP.int_RNA <- NormalizeData(GARP.int, verbose = FALSE)
+
+CD36MoMacs.DEG <- FindMarkers(GARP.int_RNA, ident.1 = "CD36+MoMacs_GARP_cKO", ident.2 = "CD36+MoMacs_Ctrl",test.use = "MAST",logfc.threshold = 0,
+                        min.pct = 0)
+head(CD36MoMacs.DEG, n = 15)
+CD36MoMacs.DEG$gene<-rownames(CD36MoMacs.DEG)
+library(openxlsx)
+write.xlsx(CD36MoMacs.DEG,file="CD36_DEG.xlsx")
+
